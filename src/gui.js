@@ -9,6 +9,7 @@ const instr = pane.addFolder({
     title: 'Sound',
 });
 
+// sound/tone context on and off
 const btnSound = instr.addButton({
     title: '► | ◼︎',
     label: 'sound on/off',
@@ -20,34 +21,45 @@ btnSound.on('click', () => {
     if (playing) {
         Tone.getContext().rawContext.suspend();
         playing = false;
-        audioBuffer.disconnect();
+        //audioBuffer.disconnect();
+        console.log(Tone.getContext().state);
     } else {
-        Tone.start();
+      
+       
         playing = true;
+    
+    
+          Tone.start();
+          console.log(Tone.getContext().state);
+          /*
+          audioBuffer.start(Tone.now(),1);
+          audioBuffer.stop(Tone.now()+2);
+        
+         grainBuffer.start(Tone.now(),2);
+         grainBuffer.stop(Tone.now()+2);
+       */
+        clock.start(Tone.now());
+        clock.stop("+10");
         /*
-        const recorder = new Tone.Recorder();
-        gp.connect(recorder);
-        // start recording
-        recorder.start();
-        // generate a few notes
-        gp.start();
-        // wait for the notes to end and stop the recording
-        setTimeout(async () => {
-            // the recorded audio is returned as a blob
-            const recording = await recorder.stop();
-            // download the recording by creating an anchor element and blob url
-            const url = URL.createObjectURL(recording);
-            const anchor = document.createElement("a");
-            anchor.download = "recording.webm";
-            anchor.href = url;
-            anchor.click();
-        }, 70000);
-    */
+        clock.start(Tone.now()+1);
+        clock.stop("+10");
+        clock.start(Tone.now()+2);
+        clock.stop("+10");
+        clock.start(Tone.now()+3);
+        clock.stop("+10");
+        clock.start(Tone.now()+4);
+        clock.stop("+10");
+        clock.start(Tone.now()+5);
+        clock.stop("+10");
+        clock.start(Tone.now()+6);
+        clock.stop("+10");
+        */
+   /*
         gp.start();
         let len = audioBuffer.buffer.length;
         let att = 0.1;
         let dec = 0.1;
-
+*/
         /*
             for(let i = 0; i < len/50; i + 50){
                 buf = new Tone.ToneBufferSource().toDestination();
