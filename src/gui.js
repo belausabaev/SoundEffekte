@@ -38,8 +38,14 @@ btnSound.on('click', () => {
          grainBuffer.start(Tone.now(),2);
          grainBuffer.stop(Tone.now()+2);
        */
+      
         clock.start(Tone.now());
-        clock.stop("+10");
+   
+        clock.stop("+5");
+
+ 
+      
+       
         /*
         clock.start(Tone.now()+1);
         clock.stop("+10");
