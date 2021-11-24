@@ -41,7 +41,7 @@ btnSound.on('click', () => {
       
         clock.start(Tone.now());
    
-        clock.stop("+5");
+        clock.stop("+15");
 
  
       
