@@ -1,7 +1,4 @@
-let audioFile = "soundfiles/Theremin_Hauptstimme_sound.wav";
-let audioFile2 = "soundfiles/guitar.wav";
-let audioFile3 = "soundfiles/Beethoven-Mondscheinsonate-sound-part.wav";
-let audioFile4 = "soundfiles/nevsky-theremin-part2.wav";
+
 
 let activeSources;
 
@@ -127,17 +124,7 @@ function clockCallback(time) {
   grainBuf.onended = () => {
     grainBuf.buffer.dispose();
   }
-  /*
-  // tone js grain player
-  activeSources.push(grainBuf);
-  // remove it when it's done
-  grainBuf.onended = () => {
-    const index = activeSources.indexOf(grainBuf);
-    if (index !== -1) {
-      activeSources.splice(index, 1);
-    }
-  };
-*/
+
   /*
 Tone.Offline(() => {
 
@@ -187,7 +174,7 @@ newBuf.start();
     */
   /*
   grainBuf5.fadeIn = overlap+1;
-  grainBuf5.fadeOut = overlap;
+  grainBuf5.fadeOut = overlap;h
   grainBuf5.start(time, ticks * 0.04 * grainSize);
   grainBuf5.stop(time + (grainSize)/playbackRate);
   */

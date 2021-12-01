@@ -1,3 +1,7 @@
+const PARAMS = {
+    source: 0
+}
+
 const pane = new Tweakpane({
     title: 'Grain Delay',
     expanded: true,
@@ -43,7 +47,7 @@ btnSound.on('click', () => {
    
         clock.stop("+15");
 
- 
+        interactivesound = true;
       
        
         /*
@@ -117,4 +121,51 @@ btnSound.on('click', () => {
 
 
 
+});
+let audioFile = "soundfiles/Theremin_Hauptstimme_sound.wav";
+let audioFile2 = "soundfiles/guitar.wav";
+let audioFile3 = "soundfiles/Beethoven-Mondscheinsonate-sound-part.wav";
+let audioFile4 = "soundfiles/nevsky-theremin-part2.wav";
+
+
+const sampleBuffer1 = new Tone.ToneAudioBuffer(audioFile, () => {
+    console.log('loaded');
+});
+const sampleBuffer2 = new Tone.ToneAudioBuffer(audioFile2, () => {
+    console.log('loaded');
+});
+const sampleBuffer3 = new Tone.ToneAudioBuffer(audioFile3, () => {
+    console.log('loaded');
+});
+const sampleBuffer4 = new Tone.ToneAudioBuffer(audioFile4, () => {
+    console.log('loaded');
+});
+
+
+const SourceInput = 
+    instr.addInput(PARAMS, 'source', { options: { Synthetic_Sound: 0, Guitar: 1, Piano: 2 , Theremin_Melody_1: 3} });
+SourceInput.on('change', function (ev) {
+    grainSample = ev.value;
+    if (grainSample == 0) {
+        audioBuffer.buffer = sampleBuffer1;
+          console.log("grain sample "+grainSample);
+        //gp.buffer = sampleBuffer1;
+        //interactivesound = false;
+
+    }
+    if (grainSample == 1) {
+        audioBuffer.buffer = sampleBuffer2;
+          console.log("grain sample "+grainSample);
+        //gp.buffer = sampleBuffer1;
+        //interactivesound = false;
+
+    }
+
+    if (grainSample == 2) {
+        audioBuffer.buffer = sampleBuffer3;
+          console.log("grain sample "+grainSample);
+        //gp.buffer = sampleBuffer1;
+        //interactivesound = false;
+
+    }
 });
