@@ -21,10 +21,7 @@ const feedbackDelay11 = new Tone.FeedbackDelay(0.6, 0.6).toDestination();
 
 const grainBuffer = new Tone.ToneBufferSource().toDestination();
 
-const audioBuffer = new Tone.ToneBufferSource(audioFile4, () => {
-  console.log('loaded');
-  grainBuffer.buffer = audioBuffer.buffer;
-}).toDestination();
+
 
 
 

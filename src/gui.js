@@ -122,24 +122,6 @@ btnSound.on('click', () => {
 
 
 });
-let audioFile = "soundfiles/Theremin_Hauptstimme_sound.wav";
-let audioFile2 = "soundfiles/guitar.wav";
-let audioFile3 = "soundfiles/Beethoven-Mondscheinsonate-sound-part.wav";
-let audioFile4 = "soundfiles/nevsky-theremin-part2.wav";
-
-
-const sampleBuffer1 = new Tone.ToneAudioBuffer(audioFile, () => {
-    console.log('loaded');
-});
-const sampleBuffer2 = new Tone.ToneAudioBuffer(audioFile2, () => {
-    console.log('loaded');
-});
-const sampleBuffer3 = new Tone.ToneAudioBuffer(audioFile3, () => {
-    console.log('loaded');
-});
-const sampleBuffer4 = new Tone.ToneAudioBuffer(audioFile4, () => {
-    console.log('loaded');
-});
 
 
 const SourceInput = 

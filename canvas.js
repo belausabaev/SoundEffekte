@@ -5,6 +5,31 @@ let playing = false;
 let grainplaying = false;
 let interactivesound = false;
 
+
+let audioFile = "soundfiles/Theremin_Hauptstimme_sound.wav";
+let audioFile2 = "soundfiles/guitar.wav";
+let audioFile3 = "soundfiles/Beethoven-Mondscheinsonate-sound-part.wav";
+let audioFile4 = "soundfiles/nevsky-theremin-part2.wav";
+
+
+const sampleBuffer1 = new Tone.ToneAudioBuffer(audioFile, () => {
+    console.log('loaded');
+});
+const sampleBuffer2 = new Tone.ToneAudioBuffer(audioFile2, () => {
+    console.log('loaded');
+});
+const sampleBuffer3 = new Tone.ToneAudioBuffer(audioFile3, () => {
+    console.log('loaded');
+});
+const sampleBuffer4 = new Tone.ToneAudioBuffer(audioFile4, () => {
+    console.log('loaded');
+});
+
+const audioBuffer = new Tone.ToneBufferSource(audioFile4, () => {
+    console.log('loaded');
+    grainBuffer.buffer = audioBuffer.buffer;
+  }).toDestination();
+
 function setup() {
 
     canvas = createCanvas(windowWidth, windowHeight);
@@ -55,10 +80,25 @@ function draw() {
 
             if(interactivesound){
                 // check boundaries of hand parameter scale
-                 console.log("length audio buffer: " + audioBuffer.length);
+                 console.log("length audio buffer: " + audioBuffer.buffer.length);
             }
 
+            let audioLenInSec = audioBuffer.buffer.length/Tone.getContext().rawContext.sampleRate;
+
             console.log("x :"+handR.x +" y: "+handR.y);
+            /*
+            handPos = y
+            audioLength = y
+            handPosPossible = video.height
+            audioPos = ?
+            */
+
+            //
+            //Tone.setContext(new Tone.Context(new Tone.context.rawContext.constructor({ sampleRate: 96000 })))
+            console.log("sample rate "+Tone.getContext().rawContext.sampleRate);
+            console.log("audio file length in seconds "+audioBuffer.buffer.length/Tone.getContext().rawContext.sampleRate);
+            //y/video.height * audiolenght??
+            //x/audioLength 
 
         }
     }
