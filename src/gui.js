@@ -43,9 +43,9 @@ btnSound.on('click', () => {
          grainBuffer.stop(Tone.now()+2);
        */
       
-        clock.start(Tone.now());
+   //     clock.start(Tone.now());
    
-        clock.stop("+15");
+  //      clock.stop("+15");
 
         interactivesound = true;
       
