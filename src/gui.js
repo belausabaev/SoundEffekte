@@ -42,10 +42,10 @@ btnSound.on('click', () => {
          grainBuffer.start(Tone.now(),2);
          grainBuffer.stop(Tone.now()+2);
        */
-      
-   //     clock.start(Tone.now());
+      //  clock.loop = true;
+       // clock.start(Tone.now());
    
-  //      clock.stop("+15");
+  //     clock.stop("+15");
 
         interactivesound = true;
       
@@ -131,6 +131,7 @@ SourceInput.on('change', function (ev) {
     if (grainSample == 0) {
         audioBuffer.buffer = sampleBuffer1;
           console.log("grain sample "+grainSample);
+          clock.start(Tone.now());
         //gp.buffer = sampleBuffer1;
         //interactivesound = false;
 
@@ -140,7 +141,7 @@ SourceInput.on('change', function (ev) {
           console.log("grain sample "+grainSample);
         //gp.buffer = sampleBuffer1;
         //interactivesound = false;
-
+        clock.start(Tone.now());
     }
 
     if (grainSample == 2) {

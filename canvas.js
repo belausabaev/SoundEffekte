@@ -95,21 +95,32 @@ function draw() {
 
             //
             //Tone.setContext(new Tone.Context(new Tone.context.rawContext.constructor({ sampleRate: 96000 })))
-            console.log("sample rate "+Tone.getContext().rawContext.sampleRate);
-            console.log("audio file length in seconds "+audioBuffer.buffer.length/Tone.getContext().rawContext.sampleRate);
-            console.log("audio file length in samples "+audioBuffer.buffer.length);
+        //    console.log("sample rate "+Tone.getContext().rawContext.sampleRate);
+        //    console.log("audio file length in seconds "+audioBuffer.buffer.length/Tone.getContext().rawContext.sampleRate);
+        //    console.log("audio file length in samples "+audioBuffer.buffer.length);
             //y/video.height * audiolenght??
             //x/audioLength 
             // height of webcam video = max value of hand y 
             let handPercent = handR.y / (360/100) // percent hand height wrt video height
             let audioPercent = (audioBuffer.buffer.length /100);
-            console.log("right hand y " +handR.y);
-            console.log("hand perc " +handPercent);
-            console.log("audio lenght sec wrt hand percent " +(audioPercent * handPercent)/Tone.getContext().rawContext.sampleRate);
+        //    console.log("right hand y " +handR.y);
+        //    console.log("hand perc " +handPercent);
+        //    console.log("audio lenght sec wrt hand percent " +(audioPercent * handPercent)/Tone.getContext().rawContext.sampleRate);
             let audioPercToHand = (audioPercent * handPercent)/Tone.getContext().rawContext.sampleRate;
-            let ticks = clock.getTicksAtTime();
+            let ticks = clock.getTicksAtTime(Tone.now());
             console.log("ticks "+ticks);
-            
+            // eine Melodie in Form von Bewegung ausdrücken
+            if(audioPercToHand > audioLenInSec){
+                // just play back the sound in loop with current effect settings
+                //clock.start(Tone.now());
+            }
+            else if(audioPercToHand < 0){
+                // hand movement is outside the valid range, so play back the sound in loop with current effect settings
+            }
+            else if( audioPercToHand < audioLenInSec){
+                // movement is within valid audio length range
+                
+            }
             //clock.stop("+2");
         }
     }
