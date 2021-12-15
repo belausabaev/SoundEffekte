@@ -24,12 +24,13 @@ const grainBuffer = new Tone.ToneBufferSource().toDestination();
 
 
 
-
+/*
 
 grainSize = 0.08; // clock geschwindigkeit einfluss
 playbackRate = 0.1; // the grain is scheduled every x seconds
 overlap = 0.5; // wie verbunden die grains klingen
 detune = 500;
+*/
 
 const clock = new Tone.Clock(clockCallback, 1 / grainSize);
 
@@ -53,30 +54,36 @@ function clockCallback(time) {
     console.log("done playing");
   }).toDestination();
 
+
+  const grainBuf2 = new Tone.ToneBufferSource(audioBuffer.buffer, onload => {
+    console.log("done playing");
+  }).toDestination();
+
+  const grainBuf3 = new Tone.ToneBufferSource(audioBuffer.buffer, onload => {
+    console.log("done playing");
+  }).toDestination();
+  /*
+    const grainBuf4 = new Tone.ToneBufferSource(audioBuffer.buffer, onload => {
+      console.log("done playing");
+    }).toDestination();
+    const grainBuf5 = new Tone.ToneBufferSource(audioBuffer.buffer, onload => {
+      console.log("done playing");
+    }).toDestination();
   
-   const grainBuf2 = new Tone.ToneBufferSource(audioBuffer.buffer, onload => {
-     console.log("done playing");
-   }).toDestination();
- 
-   const grainBuf3 = new Tone.ToneBufferSource(audioBuffer.buffer, onload => {
-     console.log("done playing");
-   }).toDestination();
- /*
-   const grainBuf4 = new Tone.ToneBufferSource(audioBuffer.buffer, onload => {
-     console.log("done playing");
-   }).toDestination();
-   const grainBuf5 = new Tone.ToneBufferSource(audioBuffer.buffer, onload => {
-     console.log("done playing");
-   }).toDestination();
- 
- 
-   const grainBuf6 = new Tone.ToneBufferSource(audioBuffer.buffer, onload => {
-     console.log("done playing");
-   }).toDestination();
- */
+  
+    const grainBuf6 = new Tone.ToneBufferSource(audioBuffer.buffer, onload => {
+      console.log("done playing");
+    }).toDestination();
+  */
   //grainBuf.playbackRate.value = 20;   // changing pitch of grain buffer!!!
 
-  grainBuf.connect(feedbackDelay11).connect(feedbackDelay3).connect(fbdel1).toDestination();
+
+  if (fbdelay == 2) {
+    grainBuf.connect(feedbackDelay11).connect(feedbackDelay3).connect(fbdel1).toDestination();
+  }
+  else if (fbdelay != null) {
+    grainBuf.connect(fbdelay).toDestination();
+  }
   /*
   grainBuf2.connect(fbdel2).toDestination();
   grainBuf3.connect(fbdel1).toDestination();
@@ -112,9 +119,11 @@ function clockCallback(time) {
   //intervaltofrequencyratio function from tone js
   grainBuf.playbackRate.value = Math.pow(2, (interval / 12));
 
-  grainBuf.fadeIn = 0.5;
-  grainBuf.fadeOut = 0.5;
+  grainBuf.fadeIn = overlap; //0.5
+  grainBuf.fadeOut = overlap; // 0.5
+  console.log(" grain start at " + time + " from " + offset);
   grainBuf.start(time, offset);
+  console.log(" grain stop at " + time + " " + grainSize / playbackRate);
   grainBuf.stop(time + grainSize / playbackRate);
   //grainBuf.stop(time + attack + decay +1 );
 
@@ -183,7 +192,6 @@ newBuf.start();
   */
 
 }
-
 
 
 

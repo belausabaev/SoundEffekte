@@ -1,6 +1,10 @@
 const PARAMS = {
-    source: 0
-}
+    source: 0, //sample file number in GUI drop down list
+    grainSize: 0.08, //in seconds
+    overlap: 0.5, //in seconds
+    detune: 500, // detuning in cents, 100 cent = 1 semitone
+    playbackrate: 0.1, //playback rate factor
+};
 
 const pane = new Tweakpane({
     title: 'Grain Delay',
@@ -43,9 +47,10 @@ btnSound.on('click', () => {
          grainBuffer.stop(Tone.now()+2);
        */
       //  clock.loop = true;
-       // clock.start(Tone.now());
+        clock.start(Tone.now());
    
-  //     clock.stop("+15");
+    //   clock.stop("+15");
+        audioBuffer.loop = true;
 
         interactivesound = true;
       
@@ -131,7 +136,8 @@ SourceInput.on('change', function (ev) {
     if (grainSample == 0) {
         audioBuffer.buffer = sampleBuffer1;
           console.log("grain sample "+grainSample);
-          clock.start(Tone.now());
+          clock.stop();
+          clock.start(); // restart clock, restart melody with new buffer
         //gp.buffer = sampleBuffer1;
         //interactivesound = false;
 
@@ -139,16 +145,49 @@ SourceInput.on('change', function (ev) {
     if (grainSample == 1) {
         audioBuffer.buffer = sampleBuffer2;
           console.log("grain sample "+grainSample);
+          clock.stop();
+          clock.start();
         //gp.buffer = sampleBuffer1;
         //interactivesound = false;
-        clock.start(Tone.now());
+       // clock.start(Tone.now());
     }
 
     if (grainSample == 2) {
         audioBuffer.buffer = sampleBuffer3;
           console.log("grain sample "+grainSample);
+          clock.stop();
+          clock.start();
         //gp.buffer = sampleBuffer1;
         //interactivesound = false;
 
     }
+});
+
+pane.addSeparator();
+
+const grain = pane.addFolder({
+    title: 'Grain Params',
+    expanded: true
+});
+
+const gsInput = grain.addInput(PARAMS, 'grainSize', { min: 0.01, max: 3, step: 0.01 });
+gsInput.on('change', function (ev) {
+    gS = parseFloat(ev.value.toFixed(2));
+    grainSize = gS;
+});
+
+const ovInput = grain.addInput(PARAMS, 'overlap', { min: 0.0, max: 1, step: 0.01 });
+ovInput.on('change', function (ev) {
+    oL = parseFloat(ev.value.toFixed(2));
+    overlap = oL;
+});
+
+const maxDetune = grain.addInput(PARAMS, 'detune', { min: 0, max: 800, step: 10 });
+maxDetune.on('change', function (ev) {
+    detune = ev.value;
+});
+
+const changePBR = grain.addInput(PARAMS, 'playbackrate', { min: 0.1, max: 5, step: 0.1 });
+changePBR.on('change', function (ev) {
+    playbackRate = ev.value;
 });

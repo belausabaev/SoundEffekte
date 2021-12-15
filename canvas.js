@@ -30,6 +30,15 @@ const audioBuffer = new Tone.ToneBufferSource(audioFile4, () => {
     grainBuffer.buffer = audioBuffer.buffer;
   }).toDestination();
 
+  audioBuffer.loop = true;
+
+grainSize = 0.08; // clock geschwindigkeit einfluss
+playbackRate = 0.1; // the grain is scheduled every x seconds
+overlap = 0.5; // wie verbunden die grains klingen
+detune = 500;
+
+let fbdelay;
+
 function setup() {
 
     canvas = createCanvas(windowWidth, windowHeight);
@@ -85,7 +94,7 @@ function draw() {
 
             let audioLenInSec = audioBuffer.buffer.length/Tone.getContext().rawContext.sampleRate;
 
-            console.log("x :"+handR.x +" y: "+handR.y);
+         //   console.log("x :"+handR.x +" y: "+handR.y);
             /*
             handPos = y
             audioLength = y
@@ -103,23 +112,46 @@ function draw() {
             // height of webcam video = max value of hand y 
             let handPercent = handR.y / (360/100) // percent hand height wrt video height
             let audioPercent = (audioBuffer.buffer.length /100);
-        //    console.log("right hand y " +handR.y);
-        //    console.log("hand perc " +handPercent);
+       //    console.log("right hand y " +handR.y);
+       //     console.log("hand perc " +handPercent);
         //    console.log("audio lenght sec wrt hand percent " +(audioPercent * handPercent)/Tone.getContext().rawContext.sampleRate);
             let audioPercToHand = (audioPercent * handPercent)/Tone.getContext().rawContext.sampleRate;
-            let ticks = clock.getTicksAtTime(Tone.now());
-            console.log("ticks "+ticks);
+        
+            let ticksinDraw = clock.getTicksAtTime(Tone.now()); // when clock is paused ticks stays the same
+        //    console.log("ticks in clock "+ticks);
+            console.log("ticks in draw "+ticksinDraw);
+            let curTicks = clock.toTicks(audioPercToHand);
+        //    console.log("cur ticks "+curTicks);
+            //clock.start(Tone.now(),curTicks);
+            console.log("audio len to hand pos "+audioPercToHand);
             // eine Melodie in Form von Bewegung ausdrücken
             if(audioPercToHand > audioLenInSec){
+                //hand movement is outside the valid range
                 // just play back the sound in loop with current effect settings
                 //clock.start(Tone.now());
+                clock.pause();
+                console.log("off");
             }
             else if(audioPercToHand < 0){
                 // hand movement is outside the valid range, so play back the sound in loop with current effect settings
             }
             else if( audioPercToHand < audioLenInSec){
                 // movement is within valid audio length range
+                //where is the clock now
+                //where is the hand in audio file
+                let fb = map(audioPercToHand, 0, audioLenInSec, 0,1);
+                console.log("feedback "+fb);
+                if(fb < 0.5){
+                    fbdelay = null;
+                }
+                else if(fb > 0.5 && fb < 0.7){
+                    fbdelay = feedbackDelay9;
+                }
+                else fbdelay = 2;
                 
+       //         console.log("gs "+grainSize +" pbr "+playbackRate+" detune "+detune);   
+                clock.start(); // continues melody
+             
             }
             //clock.stop("+2");
         }
