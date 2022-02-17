@@ -130,7 +130,7 @@ btnSound.on('click', () => {
 
 
 const SourceInput = 
-    instr.addInput(PARAMS, 'source', { options: { Synthetic_Sound: 0, Guitar: 1, Piano: 2 , Theremin_Melody_1: 3} });
+    instr.addInput(PARAMS, 'source', { options: { Theremin_Melody: 0, Guitar: 1, Piano: 2 , Theremin_Melody_Nevsky: 3} });
 SourceInput.on('change', function (ev) {
     grainSample = ev.value;
     if (grainSample == 0) {
@@ -154,6 +154,16 @@ SourceInput.on('change', function (ev) {
 
     if (grainSample == 2) {
         audioBuffer.buffer = sampleBuffer3;
+          console.log("grain sample "+grainSample);
+          clock.stop();
+          clock.start();
+        //gp.buffer = sampleBuffer1;
+        //interactivesound = false;
+
+    }
+
+    if (grainSample == 3) {
+        audioBuffer.buffer = sampleBuffer4;
           console.log("grain sample "+grainSample);
           clock.stop();
           clock.start();
