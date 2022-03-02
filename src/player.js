@@ -4,6 +4,7 @@ let activeSources;
 
 Tone.FeedbackDelay.wet = 0.7;
 
+// params: delay(spacing of delayed sound segments), feedback (amount/strength of feedback or segment)
 const feedbackDelay = new Tone.FeedbackDelay(0.1, 0.2).toDestination();
 const feedbackDelay2 = new Tone.FeedbackDelay(0.15, 0.4).toDestination();
 const feedbackDelay3 = new Tone.FeedbackDelay(0.2, 0.2).toDestination();
@@ -16,16 +17,21 @@ const feedbackDelay9 = new Tone.FeedbackDelay(0.5, 0.5).toDestination();
 const feedbackDelay10 = new Tone.FeedbackDelay(0.55, 0.55).toDestination();
 const feedbackDelay11 = new Tone.FeedbackDelay(0.6, 0.6).toDestination();
 
+const fbdel1 = new Tone.FeedbackDelay(0.4, 0.7).toDestination();
+const fbdel2 = new Tone.FeedbackDelay(0.1, 0.2).toDestination();
 
-// create an oscillator and connect it
+const fbd1 = new Tone.FeedbackDelay("16n", 0.2).toDestination();
+const fbd2 = new Tone.FeedbackDelay("8n", 0.4).toDestination();
+const fbd3 = new Tone.FeedbackDelay("2n", 0.5).toDestination();
+
+const fbd4 = new Tone.FeedbackDelay("16n", 0.5).toDestination();
+const fbd5 = new Tone.FeedbackDelay("32n", 0.8).toDestination();
+const fbd6 = new Tone.FeedbackDelay("64n", 0.9).toDestination();
 
 const grainBuffer = new Tone.ToneBufferSource().toDestination();
 
 
-
-
 /*
-
 grainSize = 0.08; // clock geschwindigkeit einfluss
 playbackRate = 0.1; // the grain is scheduled every x seconds
 overlap = 0.5; // wie verbunden die grains klingen
@@ -37,8 +43,6 @@ const clock = new Tone.Clock(clockCallback, 1 / grainSize);
 
 //const clock2 = new Tone.Clock(clockCallback, 1 / (grainSize*0.5));
 
-const fbdel1 = new Tone.FeedbackDelay(0.4, 0.7).toDestination();
-const fbdel2 = new Tone.FeedbackDelay(0.1, 0.2).toDestination();
 
 
 
@@ -54,6 +58,7 @@ function clockCallback(time) {
   const grainBuf = new Tone.ToneBufferSource(audioBuffer.buffer, onload => {
     console.log("loaded audio buffer");
   }).toDestination();
+ 
   grainBuf.loop = true;
 
 /*
@@ -78,16 +83,20 @@ function clockCallback(time) {
       console.log("done playing");
     }).toDestination();
   */
-  //grainBuf.playbackRate.value = 20;   // changing pitch of grain buffer!!!
+  
 
 
   if (fbdelay == 2) {
-    grainBuf.connect(feedbackDelay11).connect(feedbackDelay9).connect(fbdel1).toDestination();
+    grainBuf.connect(feedbackDelay11).connect(feedbackDelay6).connect(fbdel1).toDestination();
+  }
+  else if(fbdelay == 1){
+  //  grainBuf.connect(feedbackDelay9).connect(fbd2).connect(fbd3).toDestination();
+   grainBuf.connect(fbd6).connect(fbd5).connect(fbd4).toDestination();
   }
   else if (fbdelay != null) {
     grainBuf.connect(fbdelay).toDestination();
   }
-  
+ 
   /*
   grainBuf2.connect(fbdel2).toDestination();
   grainBuf3.connect(fbdel1).toDestination();

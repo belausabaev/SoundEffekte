@@ -1,6 +1,6 @@
 const PARAMS = {
     source: 0, //sample file number in GUI drop down list
-    grainSize: 0.08, //in seconds
+    grainSize: 0.30, //in seconds
     overlap: 0.5, //in seconds
     detune: 500, // detuning in cents, 100 cent = 1 semitone
     playbackrate: 0.1, //playback rate factor
@@ -27,11 +27,11 @@ const btnSound = instr.addButton({
 playing = false;
 
 btnSound.on('click', () => {
+    console.log(Tone.getContext().state);
     if (playing) {
         Tone.getContext().rawContext.suspend();
         playing = false;
         //audioBuffer.disconnect();
-        console.log(Tone.getContext().state);
     } else {
       
        
@@ -39,7 +39,7 @@ btnSound.on('click', () => {
     
     
           Tone.start();
-          console.log(Tone.getContext().state);
+         
           /*
           audioBuffer.start(Tone.now(),1);
           audioBuffer.stop(Tone.now()+2);
