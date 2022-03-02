@@ -33,6 +33,7 @@ detune = 500;
 */
 
 const clock = new Tone.Clock(clockCallback, 1 / grainSize);
+//clock.loop = true;
 
 //const clock2 = new Tone.Clock(clockCallback, 1 / (grainSize*0.5));
 
@@ -42,26 +43,28 @@ const fbdel2 = new Tone.FeedbackDelay(0.1, 0.2).toDestination();
 
 
 function clockCallback(time) {
-  console.log("time " + time);
+ // console.log("time " + time);
   const ticks = clock.getTicksAtTime(time);
-  console.log("ticks " + ticks);
+//  console.log("ticks " + ticks);
   const offset = ticks * grainSize;
-  console.log("offset " + offset);
+//  console.log("offset " + offset);
 
-
+  console.log("in clock");
 
   const grainBuf = new Tone.ToneBufferSource(audioBuffer.buffer, onload => {
-    console.log("done playing");
+    console.log("loaded audio buffer");
   }).toDestination();
+  grainBuf.loop = true;
 
-
+/*
   const grainBuf2 = new Tone.ToneBufferSource(audioBuffer.buffer, onload => {
-    console.log("done playing");
+    console.log("loaded audio buffer");
   }).toDestination();
 
   const grainBuf3 = new Tone.ToneBufferSource(audioBuffer.buffer, onload => {
-    console.log("done playing");
+    console.log("loaded audio buffer");
   }).toDestination();
+  */
   /*
     const grainBuf4 = new Tone.ToneBufferSource(audioBuffer.buffer, onload => {
       console.log("done playing");
@@ -79,11 +82,12 @@ function clockCallback(time) {
 
 
   if (fbdelay == 2) {
-    grainBuf.connect(feedbackDelay11).connect(feedbackDelay3).connect(fbdel1).toDestination();
+    grainBuf.connect(feedbackDelay11).connect(feedbackDelay9).connect(fbdel1).toDestination();
   }
   else if (fbdelay != null) {
     grainBuf.connect(fbdelay).toDestination();
   }
+  
   /*
   grainBuf2.connect(fbdel2).toDestination();
   grainBuf3.connect(fbdel1).toDestination();
@@ -121,9 +125,9 @@ function clockCallback(time) {
 
   grainBuf.fadeIn = overlap; //0.5
   grainBuf.fadeOut = overlap; // 0.5
-  console.log(" grain start at " + time + " from " + offset);
+//  console.log(" grain start at " + time + " from " + offset);
   grainBuf.start(time, offset);
-  console.log(" grain stop at " + time + " " + grainSize / playbackRate);
+//  console.log(" grain stop at " + time + " " + grainSize / playbackRate);
   grainBuf.stop(time + grainSize / playbackRate);
   //grainBuf.stop(time + attack + decay +1 );
 

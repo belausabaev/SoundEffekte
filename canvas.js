@@ -5,6 +5,7 @@ let playing = false;
 let grainplaying = false;
 let interactivesound = false;
 
+Tone.getContext().rawContext.suspend();
 
 let audioFile = "soundfiles/Theremin_Hauptstimme_sound.wav";
 let audioFile2 = "soundfiles/guitar.wav";
@@ -25,7 +26,7 @@ const sampleBuffer4 = new Tone.ToneAudioBuffer(audioFile4, () => {
     console.log('loaded');
 });
 
-const audioBuffer = new Tone.ToneBufferSource(audioFile4, () => {
+const audioBuffer = new Tone.ToneBufferSource(audioFile, () => {
     console.log('loaded');
     grainBuffer.buffer = audioBuffer.buffer;
   }).toDestination();
@@ -89,7 +90,7 @@ function draw() {
 
             if(interactivesound){
                 // check boundaries of hand parameter scale
-                 console.log("length audio buffer: " + audioBuffer.buffer.length);
+       //          console.log("length audio buffer: " + audioBuffer.buffer.length);
             }
 
             let audioLenInSec = audioBuffer.buffer.length/Tone.getContext().rawContext.sampleRate;
@@ -119,21 +120,22 @@ function draw() {
         
             let ticksinDraw = clock.getTicksAtTime(Tone.now()); // when clock is paused ticks stays the same
         //    console.log("ticks in clock "+ticks);
-            console.log("ticks in draw "+ticksinDraw);
+  //          console.log("ticks in draw "+ticksinDraw);
             let curTicks = clock.toTicks(audioPercToHand);
         //    console.log("cur ticks "+curTicks);
             //clock.start(Tone.now(),curTicks);
-            console.log("audio len to hand pos "+audioPercToHand);
+ //           console.log("audio len to hand pos "+audioPercToHand);
             // eine Melodie in Form von Bewegung ausdrücken
             if(audioPercToHand > audioLenInSec){
                 //hand movement is outside the valid range
                 // just play back the sound in loop with current effect settings
                 //clock.start(Tone.now());
                 clock.pause();
-                console.log("off");
+   //             console.log("off");
             }
             else if(audioPercToHand < 0){
                 // hand movement is outside the valid range, so play back the sound in loop with current effect settings
+                clock.pause();
             }
             else if( audioPercToHand < audioLenInSec){
                 // movement is within valid audio length range
@@ -148,9 +150,11 @@ function draw() {
                     fbdelay = feedbackDelay9;
                 }
                 else fbdelay = 2;
-                
+                PARAMS.fbdelay = fb;
        //         console.log("gs "+grainSize +" pbr "+playbackRate+" detune "+detune);   
-                clock.start(); // continues melody
+     //  console.log("start clock");      
+       clock.start(); // continues melody
+                
              
             }
             //clock.stop("+2");

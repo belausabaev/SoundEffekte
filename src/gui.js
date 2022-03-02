@@ -4,6 +4,7 @@ const PARAMS = {
     overlap: 0.5, //in seconds
     detune: 500, // detuning in cents, 100 cent = 1 semitone
     playbackrate: 0.1, //playback rate factor
+    fbdelay: 0
 };
 
 const pane = new Tweakpane({
@@ -47,10 +48,10 @@ btnSound.on('click', () => {
          grainBuffer.stop(Tone.now()+2);
        */
       //  clock.loop = true;
-        clock.start(Tone.now());
+     //   clock.start(Tone.now());
    
     //   clock.stop("+15");
-        audioBuffer.loop = true;
+    //    audioBuffer.loop = true;
 
         interactivesound = true;
       
@@ -164,7 +165,7 @@ SourceInput.on('change', function (ev) {
 
     if (grainSample == 3) {
         audioBuffer.buffer = sampleBuffer4;
-          console.log("grain sample "+grainSample);
+         console.log("grain sample "+grainSample);
           clock.stop();
           clock.start();
         //gp.buffer = sampleBuffer1;
@@ -201,3 +202,7 @@ const changePBR = grain.addInput(PARAMS, 'playbackrate', { min: 0.1, max: 5, ste
 changePBR.on('change', function (ev) {
     playbackRate = ev.value;
 });
+
+pane.addMonitor(PARAMS,'grainSize',{ view:'graph', min: 0, max: 1});
+pane.addMonitor(PARAMS,'overlap',{ view:'graph', min: 0, max: 1});
+pane.addMonitor(PARAMS,'fbdelay',{ view:'graph', min: 0.0, max: 1.0});
