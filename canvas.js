@@ -7,10 +7,20 @@ let interactivesound = false;
 
 Tone.getContext().rawContext.suspend();
 
+/*
 let audioFile = "soundfiles/Theremin_Hauptstimme_sound.wav";
 let audioFile2 = "soundfiles/guitar.wav";
 let audioFile3 = "soundfiles/Beethoven-Mondscheinsonate-sound-part.wav";
 let audioFile4 = "soundfiles/nevsky-theremin-part2.wav";
+*/
+
+let audioFile = "soundfiles/birdsnearwater.wav";
+let audioFile2 = "soundfiles/boatpassing.wav";
+let audioFile3 = "soundfiles/boatpassinghydrophone.wav";
+let audioFile4 = "soundfiles/dryleaves.wav";
+let audioFile5 = "soundfiles/dryleaveseq.wav";
+let audioFile6 = "soundfiles/riverambiencebirds.wav";
+let audioFile7 = "soundfiles/riverwater.wav";
 
 
 const sampleBuffer1 = new Tone.ToneAudioBuffer(audioFile, () => {
@@ -23,6 +33,15 @@ const sampleBuffer3 = new Tone.ToneAudioBuffer(audioFile3, () => {
     console.log('loaded');
 });
 const sampleBuffer4 = new Tone.ToneAudioBuffer(audioFile4, () => {
+    console.log('loaded');
+});
+const sampleBuffer5 = new Tone.ToneAudioBuffer(audioFile5, () => {
+    console.log('loaded');
+});
+const sampleBuffer6 = new Tone.ToneAudioBuffer(audioFile6, () => {
+    console.log('loaded');
+});
+const sampleBuffer7 = new Tone.ToneAudioBuffer(audioFile7, () => {
     console.log('loaded');
 });
 
@@ -130,17 +149,21 @@ function draw() {
                 //where is the hand in audio file
                 let fb = map(audioPercToHand, 0, audioLenInSec, 0, 1);
                 console.log("feedback " + fb);
-                
-                if (fb < 0.3) {
+                // dont apply any feedback delay if hand is super high up 
+                if (fb <= 0.3) {
                     fbdelay = null;
                 }
-                else if(fb > 0.3 && fb < 0.5){
+                // apply feedback delay 9 (definition in player.js) if hand is between 0.3 and o.5
+                else if(fb > 0.3 && fb <= 0.5){
                     //fbdelay = fbd1;
                     fbdelay = feedbackDelay9;
                 }
-                else if (fb > 0.5 && fb < 0.7) {
+                // set fbdelay to 1 if hand is between 0.5 and 0.7, see condition in player.js
+                else if (fb > 0.5 && fb <= 0.7) {
                     fbdelay = 1;
                 }
+                // in all other cases set fbdelay 2, see condition in player.js
+                // for example greater 0.7, 
                 else  {
                     fbdelay = 2;
                 }

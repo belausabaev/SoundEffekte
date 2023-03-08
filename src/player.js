@@ -2,7 +2,7 @@
 
 let activeSources;
 
-Tone.FeedbackDelay.wet = 0.7;
+Tone.FeedbackDelay.wet = 0.3;
 
 // params: delay(spacing of delayed sound segments), feedback (amount/strength of feedback or segment)
 const feedbackDelay = new Tone.FeedbackDelay(0.1, 0.2).toDestination();
@@ -85,17 +85,30 @@ function clockCallback(time) {
   */
   
 
-
+    /*
+    fb delay set to 2, hand is "in all other cases"
+    */
   if (fbdelay == 2) {
-    grainBuf.connect(feedbackDelay11).connect(feedbackDelay6).connect(fbdel1).toDestination();
+    //grainBuf.connect(feedbackDelay11).connect(feedbackDelay6).connect(fbdel1).toDestination();
+    grainBuf.connect(feedbackDelay11).toDestination();
   }
+  /*
+  fbdelay set to 1, hand is between 0.5 and 0.7
+  */
   else if(fbdelay == 1){
   //  grainBuf.connect(feedbackDelay9).connect(fbd2).connect(fbd3).toDestination();
-   grainBuf.connect(fbd6).connect(fbd5).connect(fbd4).toDestination();
+   //grainBuf.connect(fbd6).connect(fbd5).connect(fbd4).toDestination();
+   grainBuf.connect(fbd6).toDestination();
   }
+  /*
+  fbdelay is set to some value, for example feedbackdelay9, apply this value to grain buffer
+  */
   else if (fbdelay != null) {
     grainBuf.connect(fbdelay).toDestination();
   }
+  /*
+  no feedback case if fbdelay is null
+  */
  
   /*
   grainBuf2.connect(fbdel2).toDestination();

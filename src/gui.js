@@ -131,7 +131,7 @@ btnSound.on('click', () => {
 
 
 const SourceInput = 
-    instr.addInput(PARAMS, 'source', { options: { Theremin_Melody: 0, Guitar: 1, Piano: 2 , Theremin_Melody_Nevsky: 3} });
+    instr.addInput(PARAMS, 'source', { options: { birdsnearwater: 0, boatpassing: 1, boatpassinghydrophone: 2 , dryleaves: 3, dryleaveseq: 4, riverambiencebirds: 5, riverwater: 6} });
 SourceInput.on('change', function (ev) {
     grainSample = ev.value;
     if (grainSample == 0) {
@@ -165,6 +165,42 @@ SourceInput.on('change', function (ev) {
 
     if (grainSample == 3) {
         audioBuffer.buffer = sampleBuffer4;
+         console.log("grain sample "+grainSample);
+          clock.stop();
+          clock.start();
+        //gp.buffer = sampleBuffer1;
+        //interactivesound = false;
+
+    }
+    if (grainSample == 4) {
+        audioBuffer.buffer = sampleBuffer4;
+         console.log("grain sample "+grainSample);
+          clock.stop();
+          clock.start();
+        //gp.buffer = sampleBuffer1;
+        //interactivesound = false;
+
+    }
+    if (grainSample == 5) {
+        audioBuffer.buffer = sampleBuffer5;
+         console.log("grain sample "+grainSample);
+          clock.stop();
+          clock.start();
+        //gp.buffer = sampleBuffer1;
+        //interactivesound = false;
+
+    }
+    if (grainSample == 6) {
+        audioBuffer.buffer = sampleBuffer6;
+         console.log("grain sample "+grainSample);
+          clock.stop();
+          clock.start();
+        //gp.buffer = sampleBuffer1;
+        //interactivesound = false;
+
+    }
+    if (grainSample == 7) {
+        audioBuffer.buffer = sampleBuffer7;
          console.log("grain sample "+grainSample);
           clock.stop();
           clock.start();
